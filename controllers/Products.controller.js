@@ -5,14 +5,26 @@ const productsController = {};
 // Obtener todos los productos
 productsController.getProducts = async (req, res) =>{
    const products =  await product.find();
-   res.json(products);
+   //res.json(products);
+   productsactive = [];
+   products.forEach((value) => {
+     if (value.status == true){
+       productsactive.push(value);
+     }
+   });
+   res.json(productsactive);
 }
 
 
 // Obtener un solo prodcuto
 productsController.getProduct = async (req , res) =>{
     const oneProduct = await product.findById(req.params.id)
-    res.json(oneProduct);
+    if (oneProduct.status == true){
+      res.json(oneProduct);
+    }else{
+      res.json({status: "not found"});
+    }
+
 }
 
 
@@ -25,12 +37,27 @@ productsController.postProduct = async (req, res) => {
       price: req.body.price,
       status: true // o status: req.body.status
   }
-  const newProduct = new product(OneProduct)
-  await newProduct.save();
-  res.json({
-      status: "Product saved",
-      data: newProduct
+  const products =  await product.find();
+  let repeated = false
+  products.forEach((value) => {
+    if (value.name == OneProduct.name && value.brand == OneProduct.brand){
+      repeated = true
+    }
+    //console.log(repeated);
   });
+
+  //console.log(repeated);
+  if (repeated == false){
+    const newProduct = new product(OneProduct)
+    await newProduct.save();
+    res.json({
+        status: "Product saved",
+        data: newProduct
+    });
+  }else{
+    res.json({status:"product repeated"})
+  }
+
 }
 
 // Actualizar a un producto
@@ -51,10 +78,10 @@ productsController.putProduct = async (req, res) =>{
 
 
 // Actualizar(Eliminar) a un producto
-userController.deleteProduct = async (req, res) =>{
+productsController.deleteProduct = async (req, res) =>{
     const {id} = req.params;
     const deleteProduct = {
-        status: false // o status: req.body.status
+      status: false // o status: req.body.status
     };
     await product.findByIdAndUpdate(id, {$set: deleteProduct}, {new:true} );
     res.json({

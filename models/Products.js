@@ -4,6 +4,8 @@ const autoIncrement = require('mongoose-auto-increment');
 // Use the Schema (Uso del esquema de mongoose)
 const { Schema } = mongoose;
 
+autoIncrement.initialize(mongoose);
+
 //Create a const that contains the schema structure (Creación del esquema de productos)
 const products = new Schema({
     name: {type: String, required: true},
