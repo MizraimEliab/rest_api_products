@@ -1,0 +1,11 @@
+{
+  "name": "node_mongo",
+  "version": "1.0.0",
+  "description": "REST API with nodejs, expressjs, and monngodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mizraim Eliab",
+  "license": "ISC"
+}
