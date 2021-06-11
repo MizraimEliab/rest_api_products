@@ -1,5 +1,5 @@
 {
-  "name": "node_mongo",
+  "name": "rest_api_products",
   "version": "1.0.0",
   "description": "REST API with nodejs, expressjs, and monngodb",
   "main": "index.js",
