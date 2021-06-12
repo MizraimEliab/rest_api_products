@@ -22,7 +22,8 @@ productsController.getProduct = async (req , res) =>{
     if (oneProduct.status == true){
       res.json(oneProduct);
     }else{
-      res.json({status: "not found"});
+      res.status(404).send('Not found')
+      //res.json({status: "not found"});
     }
 
 }
